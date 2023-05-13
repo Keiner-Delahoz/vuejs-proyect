@@ -5,7 +5,11 @@ import Footer from './components/layout/Footer.vue'
 </script>
 
 <template>
-  <NavBar />
-  <RouterView />
-  <Footer />
-</template>
+   <template v-if="!$route.meta.hideNavBar">
+     <NavBar />
+   </template>
+   <RouterView />
+   <template v-if="!$route.meta.hideFooter">
+     <Footer />
+   </template>
+ </template>

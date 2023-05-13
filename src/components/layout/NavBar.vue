@@ -1,3 +1,15 @@
+<script setup lang="ts">
+import { useUserStore } from '@/stores/user';
+
+const useStore = useUserStore();
+
+const logout = () => {
+   useStore.logout();
+}
+
+</script>
+
+
 <template>
   <nav class="navbar" role="navigation" aria-label="main navigation">
     <div class="navbar-brand">
@@ -25,5 +37,10 @@
         <a class="navbar-item"> <RouterLink to="/informacion"> Información </RouterLink> </a>
       </div>
     </div>
+
+    <div id="navbarBasicExample" class="navbar-menu">
+      <button class="button is-outlined is-danger is-normal" type="submit" @click.prevent="logout">Logout</button>
+    </div>
   </nav>
 </template>
+
