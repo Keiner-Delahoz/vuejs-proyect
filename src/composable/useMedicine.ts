@@ -1,64 +1,70 @@
-import type { Medicine } from '@/types/medicines'
-import { useFirestore } from './useFirestore'
+// import type { Medicine } from '@/types/medicines'
+// import { useFirestore } from './useFirestore'
+// import { getCollection } from './useFirestore'
 
-const { getCollection, getDocument, deleteDocument, updateDocument, addDocument } =
-  useFirestore()
+// const { getCollection, getDocument, deleteDocument, updateDocument, addDocument } =
+//   useFirestore()
 
-export const useMedicine = () => {
-  const getMedicines = async () => {
-    const records = await getCollection('Medicine')
+//   export const getMedicines = () => {
+//    getCollection
+//   }
 
-    return records
-  }
 
-  const findMedicine = async (uid: string) => {
-    const path = `Medicine/${uid}`
+// export const useMedicine = () => {
+//   const getMedicines = async () => {
+//     const records = await getCollection('Medicine')
 
-    const record = await getDocument(path)
+//     return records
+//   }
 
-    return record
-  }
+//   const findMedicine = async (uid: string) => {
+//     const path = `Medicine/${uid}`
 
-  const getMedicine = async (uid: string) => {
-    const path = `Medicine/${uid}`
+//     const record = await getDocument(path)
 
-    const medicine = await getDocument(path)
+//     return record
+//   }
 
-    return {
-      medicine
-    }
-  }
+//   const getMedicine = async (uid: string) => {
+//     const path = `Medicine/${uid}`
 
-  const deleteMedicine = async (uid: string) => {
-    const path = `Medicine/${uid}`
+//     const medicine = await getDocument(path)
 
-    await deleteDocument(path)
+//     return {
+//       medicine
+//     }
+//   }
 
-    return true
-  }
+//   const deleteMedicine = async (uid: string) => {
+//     const path = `Medicine/${uid}`
 
-  const updateMedicine = async (uid: string, medicine: Record<string, any>) => {
-    const path = `Medicine/${uid}`
+//     await deleteDocument(path)
 
-    await updateDocument(path, medicine)
+//     return true
+//   }
 
-    return true
-  }
+//   const updateMedicine = async (uid: string, medicine: Record<string, any>) => {
+//     const path = `Medicine/${uid}`
 
-  const createMedicine = async (medicine: Medicine) => {
-    const path = `Medicine/`
+//     await updateDocument(path, medicine)
 
-    await addDocument(path, medicine)
+//     return true
+//   }
 
-    return true
-  }
+//   const createMedicine = async (medicine: Medicine) => {
+//     const path = `Medicine/`
 
-  return {
-    getMedicines,
-    findMedicine,
-    getMedicine,
-    deleteMedicine,
-    updateMedicine,
-    createMedicine
-  }
-}
+//     await addDocument(path, medicine)
+
+//     return true
+//   }
+
+//   return {
+//     getMedicines,
+//     findMedicine,
+//     getMedicine,
+//     deleteMedicine,
+//     updateMedicine,
+//     createMedicine
+//   }
+// }

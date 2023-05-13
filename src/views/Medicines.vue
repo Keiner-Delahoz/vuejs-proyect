@@ -4,11 +4,13 @@ import LoadingSkeleton from '../components/shared/LoadingSkeleton.vue'
 import MedicineModal from '../components/medicines/MedicineModal.vue'
 import CustomTable from '../components/shared/CustomTable.vue'
 import Welcome from '../components/common/Welcome.vue'
-import { useMedicine } from '../composable/useMedicine'
+// import { useMedicine } from '../composable/useMedicine'
 import type { Medicine } from '@/types/medicines'
 import type { BaseColumn } from '@/types/shared'
 
-const { getMedicines, createMedicine } = useMedicine()
+import { getMedicines } from '../composable/useFirestore'
+
+// const { getMedicines, createMedicine } = useMedicine()
 
 let isLoading = ref(false)
 let isModalOpen = ref(false)
@@ -40,16 +42,20 @@ const columns = ref<BaseColumn[]>([
   }
 ])
 
+
+
 const getRecords = async () => {
   isLoading.value = true
-  const response = await getMedicines()
-  rows.value = response
+//   console.log(medicines)
+getMedicines(rows);
+//   const response = await getMedicines()
+//   rows.value = response
   isLoading.value = false
 }
 
 const handleAddMedicine = async (medicine: string) => {
   try {
-    await createMedicine(JSON.parse(medicine) as Medicine)
+   //  await createMedicine(JSON.parse(medicine) as Medicine)
     isModalOpen.value = false
     getRecords()
   } catch (error) {

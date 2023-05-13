@@ -1,64 +1,64 @@
-import type { MedicalOrder } from '@/types/medical-orders'
-import { useFirestore } from './useFirestore'
+// import type { MedicalOrder } from '@/types/medical-orders'
+// import { useFirestore } from './useFirestore'
 
-const { getCollection, getDocument, deleteDocument, updateDocument, addDocument } =
-  useFirestore()
+// const { getCollection, getDocument, deleteDocument, updateDocument, addDocument } =
+//   useFirestore()
 
-export const useOrder = () => {
-  const getOrders = async () => {
-    const records = await getCollection('Medical-Orders')
+// export const useOrder = () => {
+//   const getOrders = async () => {
+//     const records = await getCollection('Medical-Orders')
 
-    return records
-  }
+//     return records
+//   }
 
-  const findOrder = async (uid: string) => {
-    const path = `Medical-Orders/${uid}`
+//   const findOrder = async (uid: string) => {
+//     const path = `Medical-Orders/${uid}`
 
-    const record = await getDocument(path)
+//     const record = await getDocument(path)
 
-    return record
-  }
+//     return record
+//   }
 
-  const getOrder = async (uid: string) => {
-    const path = `Medical-Orders/${uid}`
+//   const getOrder = async (uid: string) => {
+//     const path = `Medical-Orders/${uid}`
 
-    const medicalOrder = await getDocument(path)
+//     const medicalOrder = await getDocument(path)
 
-    return {
-      medicalOrder
-    }
-  }
+//     return {
+//       medicalOrder
+//     }
+//   }
 
-  const deleteOrder = async (uid: string) => {
-    const path = `Medical-Orders/${uid}`
+//   const deleteOrder = async (uid: string) => {
+//     const path = `Medical-Orders/${uid}`
 
-    await deleteDocument(path)
+//     await deleteDocument(path)
 
-    return true
-  }
+//     return true
+//   }
 
-  const updateOrder = async (uid: string, medicalOrder: Record<string, any>) => {
-    const path = `Medical-Orders/${uid}`
+//   const updateOrder = async (uid: string, medicalOrder: Record<string, any>) => {
+//     const path = `Medical-Orders/${uid}`
 
-    await updateDocument(path, medicalOrder)
+//     await updateDocument(path, medicalOrder)
 
-    return true
-  }
+//     return true
+//   }
 
-  const createOrder = async (medicalOrder: MedicalOrder) => {
-    const path = `Medical-Orders/`
+//   const createOrder = async (medicalOrder: MedicalOrder) => {
+//     const path = `Medical-Orders/`
 
-    await addDocument(path, medicalOrder)
+//     await addDocument(path, medicalOrder)
 
-    return true
-  }
+//     return true
+//   }
 
-  return {
-    getOrders,
-    findOrder,
-    getOrder,
-    deleteOrder,
-    updateOrder,
-    createOrder
-  }
-}
+//   return {
+//     getOrders,
+//     findOrder,
+//     getOrder,
+//     deleteOrder,
+//     updateOrder,
+//     createOrder
+//   }
+// }

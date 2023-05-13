@@ -1,6 +1,7 @@
 import { initializeApp } from "firebase/app";
 // import 'firebase/firestore'
 import { getAuth } from 'firebase/auth'
+import { getFirestore } from 'firebase/firestore'
 
 const firebaseConfig = {
    apiKey: import.meta.env.VITE_API_FIREBASE_APIKEY,
@@ -12,13 +13,15 @@ const firebaseConfig = {
    measurementId: import.meta.env.VITE_API_FIREBASE_MEASUREMENTID
 }
 
-const DB = initializeApp(firebaseConfig);
+const firebaseApp  = initializeApp(firebaseConfig);
 
-const auth = getAuth(DB)
+const DB = getFirestore(firebaseApp)
 
-export { DB }
+const auth = getAuth(firebaseApp)
 
-export { auth }
+export { firebaseApp, DB, auth }
+
+// export { ,  };
 
 // Pinia: es un manejador de estados globales
 // Tiene una caracteristica bastante interesante y es que permite nos permite crear metodos
