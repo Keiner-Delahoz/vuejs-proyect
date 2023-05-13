@@ -4,6 +4,7 @@ import { useVuelidate } from '@vuelidate/core'
 import { maxLength, required, numeric } from '@vuelidate/validators'
 import type { MedicalOrder } from '@/types/medical-orders'
 import type { Medicine } from '@/types/medicines'
+import type { Medicine1 } from '@/types/medicines1'
 
 export default defineComponent({
   name: 'MedicalOrderModal',
@@ -53,6 +54,11 @@ export default defineComponent({
 
       isLoading.value = false
     }
+
+    const medicine = ref<Medicine1>({
+      name: '',
+      qty: 0
+    })
 
     const handleAddMedicine = () => {
       console.log('Agregando medicamento...')

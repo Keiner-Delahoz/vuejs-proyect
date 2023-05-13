@@ -35,7 +35,7 @@ const columns = ref<BaseColumn[]>([
     field: 'eps'
   },
   {
-    label: '#Medicinas',
+    label: 'Medicinas',
     field: 'medicines'
   },
   {

@@ -22,6 +22,7 @@
       <div class="navbar-start">
         <a class="navbar-item"> <RouterLink to="/"> Órdenes Médicas </RouterLink></a>
         <a class="navbar-item"> <RouterLink to="/medicamentos"> Medicamentos </RouterLink> </a>
+        <a class="navbar-item"> <RouterLink to="/informacion"> Información </RouterLink> </a>
       </div>
     </div>
   </nav>
