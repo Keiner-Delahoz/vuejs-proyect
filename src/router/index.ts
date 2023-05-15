@@ -55,9 +55,13 @@ const router = createRouter({
 })
 
 router.beforeEach((to, from, next) => {
+   const allowedRoutes = ['/login', '/register', '/', '/medicamentos', '/informacion'];
+
    if(to.path === '/login' && auth.currentUser){
       next("/")
    } else if (to.matched.some((record) => record.meta.auth) && !auth.currentUser) {
+      next("/login");
+   } if (!allowedRoutes.includes(to.path)) {
       next("/login");
    } else {
       next();

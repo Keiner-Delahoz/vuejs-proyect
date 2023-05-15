@@ -1,21 +1,21 @@
 // import type { Medicine } from '@/types/medicines'
-// import { useFirestore } from './useFirestore'
 // import { getCollection } from './useFirestore'
+import { use_Firestore } from './useFirestore'
 
-// const { getCollection, getDocument, deleteDocument, updateDocument, addDocument } =
-//   useFirestore()
+const { getCollection } =
+  use_Firestore();
 
-//   export const getMedicines = () => {
-//    getCollection
+//   export const getMedicines = async () => {
+//       const records = await getCollection('Medicine')
+//       return records
 //   }
 
 
-// export const useMedicine = () => {
-//   const getMedicines = async () => {
-//     const records = await getCollection('Medicine')
-
-//     return records
-//   }
+export const useMedicine = () => {
+   const getMedicines = async () => {
+      const records = await getCollection('Medicine')
+      return records
+  }
 
 //   const findMedicine = async (uid: string) => {
 //     const path = `Medicine/${uid}`
@@ -59,12 +59,12 @@
 //     return true
 //   }
 
-//   return {
-//     getMedicines,
-//     findMedicine,
-//     getMedicine,
-//     deleteMedicine,
-//     updateMedicine,
-//     createMedicine
-//   }
-// }
+  return {
+    getMedicines,
+   //  findMedicine,
+   //  getMedicine,
+   //  deleteMedicine,
+   //  updateMedicine,
+   //  createMedicine
+  }
+}

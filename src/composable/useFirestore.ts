@@ -1,22 +1,41 @@
 import { collection, getDocs } from 'firebase/firestore';
-import { DB } from '../services/firebase'
-import { useCollection, useFirestore } from 'vuefire'
+import { useFirestore } from 'vuefire'
 // import {useFirestore , useCollection } from 'vuefire'
 
 const db = useFirestore();
+// const collectionDB = (path: string) => collection(db, path)
 
-  export const getMedicines = async (medicines: any) => {
-   const querySnapshot = await getDocs(collection(db, "Medicine"));
-   const docs: any = [];
-   querySnapshot.forEach((doc: any) => {
-     docs.push({ id: doc.id, ...doc.data() });
-   });
-   medicines.value = docs;
- };
+//   export const getMedicines = async () => {
+//    console.log(DB)
+//  };
+//   export const getCollection = async (collection: any) => {
+//    const querySnapshot = await getDocs(collectionDB(collection));
+//    const docs: any = [];
+//    querySnapshot.forEach((doc: any) => {
+//      docs.push({ id: doc.id, ...doc.data() });
+//    });
+//    console.log(db)
+//    console.log(collectionDB)
+//    return docs;
+//  };
 
 // type PathReferenceType = 'collection' | 'document'
 
-// export const useFirestore = () => {
+export const use_Firestore = () => {
+   const collectionDB = (path: string) => collection(db, path)
+
+   const getCollection = async (collection: any) => {
+      const querySnapshot = await getDocs(collectionDB(collection));
+      const docs: any = [];
+      querySnapshot.forEach((doc: any) => {
+      const props = doc.data()
+      props.createdAt = props.createdAt ? new Date(props.createdAt).toDateString() : undefined
+         docs.push({ id: doc.id, ...doc.data() });
+      });
+      console.log(docs)
+      return docs;
+    };
+
 //   const getReference = (type: PathReferenceType, path: string) => {
 //     if (type == 'collection') {
 //       return DB.collection(path)
@@ -85,13 +104,13 @@ const db = useFirestore();
 //     return true
 //   }
 
-//   return {
+  return {
 //     getReference,
-//     getCollection,
+    getCollection,
 //     getDocument,
 //     addDocument,
 //     setDocument,
 //     updateDocument,
 //     deleteDocument
-//   }
-// }
+  }
+}

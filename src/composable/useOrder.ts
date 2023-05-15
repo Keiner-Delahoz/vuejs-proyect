@@ -1,10 +1,15 @@
 // import type { MedicalOrder } from '@/types/medical-orders'
-// import { useFirestore } from './useFirestore'
+import { use_Firestore } from './useFirestore'
 
-// const { getCollection, getDocument, deleteDocument, updateDocument, addDocument } =
-//   useFirestore()
+const { getCollection } =
+  use_Firestore()
 
-// export const useOrder = () => {
+export const useOrder = () => {
+   const getOrders = async () => {
+      const records = await getCollection('Medical-Orders')
+      return records
+  }
+
 //   const getOrders = async () => {
 //     const records = await getCollection('Medical-Orders')
 
@@ -53,12 +58,12 @@
 //     return true
 //   }
 
-//   return {
-//     getOrders,
+   return {
+      getOrders,
 //     findOrder,
 //     getOrder,
 //     deleteOrder,
 //     updateOrder,
 //     createOrder
-//   }
-// }
+  }
+}

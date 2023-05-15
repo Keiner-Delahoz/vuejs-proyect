@@ -4,14 +4,14 @@ import LoadingSkeleton from '../components/shared/LoadingSkeleton.vue'
 import MedicalOrderModal from '../components/medical-orders/MedicalOrderModal.vue'
 import CustomTable from '../components/shared/CustomTable.vue'
 import Welcome from '../components/common/Welcome.vue'
-// import { useOrder } from '../composable/useOrder'
-// import { useMedicine } from '../composable/useMedicine'
+import { useOrder } from '../composable/useOrder'
+import { useMedicine } from '../composable/useMedicine'
 import type { MedicalOrder } from '@/types/medical-orders'
 import type { Medicine } from '@/types/medicines'
 import type { BaseColumn } from '@/types/shared'
 
-// const { getOrders, createOrder } = useOrder()
-// const { getMedicines } = useMedicine()
+const { getOrders} = useOrder()
+const { getMedicines } = useMedicine()
 
 let isLoading = ref(false)
 let isModalOpen = ref(false)
@@ -51,9 +51,9 @@ const range = ref({ start: null, end: null })
 
 const getRecords = async () => {
   isLoading.value = true
-//   const response = await getOrders()
-//   medicines.value = await getMedicines()
-//   rows.value = response
+  const response = await getOrders()
+  medicines.value = await getMedicines()
+  rows.value = response
   isLoading.value = false
 }
 
