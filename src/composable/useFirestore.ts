@@ -1,4 +1,4 @@
-import { collection, getDocs } from 'firebase/firestore';
+import { collection, getDocs, addDoc } from 'firebase/firestore';
 import { useFirestore } from 'vuefire'
 // import {useFirestore , useCollection } from 'vuefire'
 
@@ -24,17 +24,34 @@ const db = useFirestore();
 export const use_Firestore = () => {
    const collectionDB = (path: string) => collection(db, path)
 
-   const getCollection = async (collection: any) => {
-      const querySnapshot = await getDocs(collectionDB(collection));
-      const docs: any = [];
-      querySnapshot.forEach((doc: any) => {
-      const props = doc.data()
-      props.createdAt = props.createdAt ? new Date(props.createdAt).toDateString() : undefined
-         docs.push({ id: doc.id, ...doc.data() });
-      });
-      console.log(docs)
-      return docs;
+   const getCollection = async (path: string) => {
+      try {
+         const reference = collectionDB(path)
+         const querySnapshot = await getDocs(reference);
+         const docs: any = [];
+         querySnapshot.forEach((doc: any) => {
+         const props = doc.data()
+         props.createdAt = props.createdAt ? new Date(props.createdAt).toDateString() : undefined
+            docs.push({ id: doc.id, ...doc.data() });
+         });
+         console.log(docs)
+         return docs;
+      } catch (error) {
+         console.error('Error al agregar el documento:', error);
+      }
+      
     };
+
+    const addDocument = async (path: string, data: any) => {
+      try {
+        const reference = collectionDB(path);
+        await addDoc(reference, data);
+        console.log('Documento agregado correctamente');
+      } catch (error) {
+        console.error('Error al agregar el documento:', error);
+      }
+    };
+      
 
 //   const getReference = (type: PathReferenceType, path: string) => {
 //     if (type == 'collection') {
@@ -107,8 +124,8 @@ export const use_Firestore = () => {
   return {
 //     getReference,
     getCollection,
-//     getDocument,
-//     addDocument,
+    //     getDocument,
+    addDocument,
 //     setDocument,
 //     updateDocument,
 //     deleteDocument

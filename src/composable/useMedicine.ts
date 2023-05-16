@@ -1,8 +1,8 @@
-// import type { Medicine } from '@/types/medicines'
+import type { Medicine } from '@/types/medicines'
 // import { getCollection } from './useFirestore'
 import { use_Firestore } from './useFirestore'
 
-const { getCollection } =
+const { getCollection, addDocument } =
   use_Firestore();
 
 //   export const getMedicines = async () => {
@@ -51,13 +51,13 @@ export const useMedicine = () => {
 //     return true
 //   }
 
-//   const createMedicine = async (medicine: Medicine) => {
-//     const path = `Medicine/`
+  const createMedicine = async (medicine: Medicine) => {
+    const path = 'Medicine'
 
-//     await addDocument(path, medicine)
+    await addDocument(path, medicine)
 
-//     return true
-//   }
+    return true
+  }
 
   return {
     getMedicines,
@@ -65,6 +65,6 @@ export const useMedicine = () => {
    //  getMedicine,
    //  deleteMedicine,
    //  updateMedicine,
-   //  createMedicine
+    createMedicine
   }
 }

@@ -4,7 +4,8 @@ import { useVuelidate } from '@vuelidate/core'
 import { maxLength, required, numeric } from '@vuelidate/validators'
 import type { MedicalOrder } from '@/types/medical-orders'
 import type { Medicine } from '@/types/medicines'
-import type { Medicine1 } from '@/types/medicines1'
+// import type { Medicine1 } from '@/types/medicines1'
+import type { BaseColumn } from '@/types/shared'
 
 export default defineComponent({
   name: 'MedicalOrderModal',
@@ -14,8 +15,8 @@ export default defineComponent({
   },
   emits: ['save', 'hide'],
   setup(props, { emit }) {
-    let isLoading = ref(false)
-    const order = ref<MedicalOrder>({
+   let isLoading = ref(false)
+   const order = ref<MedicalOrder>({
       name: '',
       lastName: '',
       idNumber: '',
@@ -23,22 +24,37 @@ export default defineComponent({
       medicines: [],
       comments: '',
       doctorSignature: ''
-    })
+   })
 
-    const isModalOpen = computed(() => props.isOpen)
-    const medicineOptions = computed(() => props.medicines)
-    const rules = computed(() => ({
+   const isModalOpen = computed(() => props.isOpen)
+   const medicineOptions = computed(() => props.medicines)
+   const rules = computed(() => ({
       name: { required },
       lastName: { required },
       idNumber: { required, numeric, maxLenght: maxLength(12) },
       eps: { required },
       medicines: [],
       doctorSignature: { required }
-    }))
+   }))
 
-    const v$ = useVuelidate(rules, order)
+   const v$ = useVuelidate(rules, order)
 
-    const handleSaveMO = async () => {
+   const resetForm = () => {
+      order.value = {
+        // Restablecer los valores de los campos del formulario
+         name: '',
+         lastName: '',
+         idNumber: '',
+         eps: '',
+         medicines: [],
+         comments: '',
+         doctorSignature: ''
+      }
+      v$.value.$reset() // Restablecer los estados de validación
+   }
+    
+
+   const handleSaveMO = async () => {
       const isFormValid = await v$.value.$validate()
 
       if (!isFormValid) {
@@ -53,15 +69,36 @@ export default defineComponent({
       console.log('Guardando...')
 
       isLoading.value = false
-    }
+      rows.value = []
+      resetForm()
+   }
 
-    const medicine = ref<Medicine1>({
-      name: '',
-      qty: 0
-    })
+
+   const newMedicine = ref<{ name: string; qty: number }>({ name: '', qty: 0 });
+   const rows = ref<Array<{ name: string; qty: number }>>([]);
+   const columns = ref<BaseColumn[]>([
+      {
+         label: 'Nombre',
+         field: 'name',
+      },
+      {
+         label: 'Cantidad',
+         field: 'qty'
+      },
+   ])
 
     const handleAddMedicine = () => {
       console.log('Agregando medicamento...')
+      const medicineOrder = {
+         name: newMedicine.value.name,
+         qty: newMedicine.value.qty
+      };
+      rows.value.push(medicineOrder);
+      order.value.medicines.push(medicineOrder)
+
+      // Restablecer los campos de medicamento y cantidad
+      newMedicine.value.name = '';
+      newMedicine.value.qty = 0;
     }
 
     return {
@@ -72,7 +109,10 @@ export default defineComponent({
       isModalOpen,
       handleSaveMO,
       medicineOptions,
-      handleAddMedicine
+      handleAddMedicine,
+      rows,
+      columns,
+      newMedicine
     }
   }
 })
@@ -154,9 +194,9 @@ export default defineComponent({
             <label class="has-text-grey has-text-weight-light">Medicamento</label>
             <div class="control has-icons-left">
               <div class="select is-fullwidth">
-                <select>
-                  <option selected>Seleccione una opción</option>
-                  <option v-for="(medicine, idx) in medicineOptions" :key="idx" :value="medicine">
+                <select v-model="newMedicine.name">
+                  <option selected disabled>Seleccione una opción</option>
+                  <option v-for="(medicine, idx) in medicineOptions" :key="idx" :value="medicine.name">
                     {{ medicine.name }}
                   </option>
                 </select>
@@ -171,7 +211,7 @@ export default defineComponent({
           <div class="field">
             <label class="has-text-grey has-text-weight-light">Cantidad</label>
             <div class="control">
-              <input class="input" type="number" />
+              <input class="input" type="number" v-model="newMedicine.qty"/>
             </div>
           </div>
         </div>
@@ -189,8 +229,8 @@ export default defineComponent({
         <!-- Tabla de medicamentos seleccionados -->
         <div class="column is-12">
           <vue-good-table
-            :columns="[]"
-            :rows="[]"
+            :columns="columns"
+            :rows="rows"
             :sort-options="{
               enabled: true
             }"

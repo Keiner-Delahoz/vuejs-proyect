@@ -54,9 +54,19 @@ export default defineComponent({
     }"
   >
     <template #table-row="_props">
-      <div v-if="showMedicines && _props.column.field == 'medicines'">
+      <!-- <div v-if="showMedicines && _props.column.field == 'medicines'">
         {{ _props.row.medicines.map((e: any) => e.name).join(', ') || "No tiene medicamentos" }}
-      </div>
+      </div> -->
+      <div v-if="showMedicines && _props.column.field == 'medicines'">
+         <template v-if="_props.row.medicines.length > 0">
+            <div v-for="(medicine, index) in _props.row.medicines" :key="index">
+               {{ medicine.name }}: {{ medicine.qty }}
+            </div>
+         </template>
+         <template v-else>
+            No tiene medicamentos
+         </template>
+      </div>   
     </template>
     <template #emptystate>{{ emptyState ?? 'No hay datos disponibles para mostrar' }}</template>
   </vue-good-table>

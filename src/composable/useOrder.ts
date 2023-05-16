@@ -1,7 +1,7 @@
-// import type { MedicalOrder } from '@/types/medical-orders'
+import type { MedicalOrder } from '@/types/medical-orders'
 import { use_Firestore } from './useFirestore'
 
-const { getCollection } =
+const { getCollection, addDocument } =
   use_Firestore()
 
 export const useOrder = () => {
@@ -50,13 +50,13 @@ export const useOrder = () => {
 //     return true
 //   }
 
-//   const createOrder = async (medicalOrder: MedicalOrder) => {
-//     const path = `Medical-Orders/`
+  const createOrder = async (medicalOrder: MedicalOrder) => {
+    const path = 'Medical-Orders'
 
-//     await addDocument(path, medicalOrder)
+    await addDocument(path, medicalOrder)
 
-//     return true
-//   }
+    return true
+  }
 
    return {
       getOrders,
@@ -64,6 +64,6 @@ export const useOrder = () => {
 //     getOrder,
 //     deleteOrder,
 //     updateOrder,
-//     createOrder
+    createOrder
   }
 }

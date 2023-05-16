@@ -10,7 +10,7 @@ import type { BaseColumn } from '@/types/shared'
 
 // import { getMedicines } from '../composable/useMedicine'
 
-const { getMedicines } = useMedicine()
+const { getMedicines, createMedicine } = useMedicine()
 
 let isLoading = ref(false)
 let isModalOpen = ref(false)
@@ -42,8 +42,6 @@ const columns = ref<BaseColumn[]>([
   }
 ])
 
-
-
 const getRecords = async () => {
   isLoading.value = true
 //   console.log(medicines)
@@ -55,9 +53,9 @@ const getRecords = async () => {
 
 const handleAddMedicine = async (medicine: string) => {
   try {
-   //  await createMedicine(JSON.parse(medicine) as Medicine)
+    await createMedicine(JSON.parse(medicine) as Medicine)
     isModalOpen.value = false
-   //  getRecords()
+    getRecords()
   } catch (error) {
     console.log(error)
   }
@@ -69,7 +67,7 @@ getRecords()
 <template>
   <div class="columns is-multiline">
     <div class="column is-12 mt-5 mb-5">
-      <Welcome message="Bienvenid@ David P. Avila" />
+      <Welcome message="Bienvenid@ Keiner De La Hoz" />
     </div>
 
     <!-- Buttons -->

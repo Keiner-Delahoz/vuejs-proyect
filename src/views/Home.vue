@@ -10,7 +10,7 @@ import type { MedicalOrder } from '@/types/medical-orders'
 import type { Medicine } from '@/types/medicines'
 import type { BaseColumn } from '@/types/shared'
 
-const { getOrders} = useOrder()
+const { getOrders, createOrder } = useOrder()
 const { getMedicines } = useMedicine()
 
 let isLoading = ref(false)
@@ -59,7 +59,7 @@ const getRecords = async () => {
 
 const handleAddOrder = async (order: string) => {
   try {
-   //  await createOrder(JSON.parse(order) as MedicalOrder)
+    await createOrder(JSON.parse(order) as MedicalOrder)
     isModalOpen.value = false
     getRecords()
   } catch (error) {
@@ -73,7 +73,7 @@ getRecords()
 <template>
   <div class="columns is-multiline">
     <div class="column is-12 mt-5 mb-6">
-      <Welcome message="Bienvenid@ David P. Avila" />
+      <Welcome message="Bienvenid@ Keiner De La Hoz"/>
     </div>
 
     <div class="column is-5">
